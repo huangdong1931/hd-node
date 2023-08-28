@@ -1,0 +1,17 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "blog/bin/www.js",
+  "scripts": {
+    "dev": "nodemon blog/bin/www.js"
+  },
+  "keywords": [],
+  "author": "hd",
+  "license": "ISC",
+  "devDependencies": {
+    "http": "0.0.1-security",
+    "nodemon": "^3.0.1",
+    "opn": "^6.0.0"
+  }
+}
