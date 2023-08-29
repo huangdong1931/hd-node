@@ -2,7 +2,13 @@
 const { SucessModel, failModel } = require('../model/responseModel');
 
 // 获取业务处理函数
-const { getBlogList } = require('../controllers/blog');
+const {
+  getBlogList,
+  getBlogDetail,
+  postBolgAdd,
+  postBolgUpdate,
+  postBolgDelete
+} = require('../controllers/blog');
 
 // 定义接口配置
 const interfaceConfig = {
@@ -15,36 +21,54 @@ const interfaceConfig = {
   detail: {
     method: 'GET',
     path: '/api/blog/detail',
+    params: {},
+    control: getBlogDetail,
   },
   add: {
     method: 'POST',
     path: '/api/blog/add',
+    params: {},
+    body: {},
+    control: postBolgAdd
   },
   update: {
     method: 'POST',
     path: '/api/blog/update',
+    params: {},
+    body: {},
+    control: postBolgUpdate
   },
   delete: {
     method: 'POST',
     path: '/api/blog/delete',
+    params: {},
+    body: {},
+    control: postBolgDelete
   }
 }
 
 const handlerBlogRoute = (req, res) => {
-  // 获取请求方式
-  const method = req.method;
-  // 获取请求配置
-  const interfaceType = req.path.split('/').pop();
-  // 获取接口配置
-  const request = interfaceConfig[interfaceType];
-  // 获取请求参数
-  if (req.query) {
+  try {
+    // 获取请求方式
+    const method = req.method;
+    // 获取请求配置
+    const interfaceType = req.path.split('/').pop();
+    // 获取接口配置
+    const request = interfaceConfig[interfaceType];
+    // 获取请求参数
     Object.assign(request.params, req.query);
+    if (request.body) {
+      Object.assign(request.body, req.body);
+    }
+    if (method === request.method && req.path === request.path) {
+      const result = request.body ? 
+        request.control(request.params, request.body) :
+        request.control(request.params);
+      return new SucessModel(result);
+    };
+  } catch (e) {
+    console.log(e);
   }
-  if (method === request.method && req.path === request.path) {
-    const result = request.control(request.params)
-    return new SucessModel(result);
-  };
 };
 
 module.exports = handlerBlogRoute;

@@ -15,14 +15,14 @@ class BaseModel {
 class SucessModel extends BaseModel {
   constructor(data, message) {
     super(data, message);
-    this.errno = 0;
+    this.code = 0;
   }
 };
 // 失败类
 class failModel extends BaseModel {
   constructor(data, message) {
     super(data, message);
-    this.errno = -1;
+    this.code = -1;
   }
 };
 
