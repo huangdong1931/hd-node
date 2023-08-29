@@ -1,5 +1,5 @@
 const http = require('http');
-const op = require('opn');
+// const op = require('opn');
 
 const serverHandle = require('../app');
 
@@ -10,5 +10,5 @@ const server = http.createServer(serverHandle);
 
 server.listen(port, hostName, () => {
   console.log(`Server is running on http://${hostName}:${port}`);
-  op(`http://${hostName}:${port}/api/blog/list`);
+  // op(`http://${hostName}:${port}/api/blog/list`);
 });

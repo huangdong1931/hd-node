@@ -35,17 +35,14 @@ const serverHandle = async (req, res) => {
   // 处理POST请求参数
   const result = await handlePost(req, res);
   req.body = result; 
-  // 过滤icon
-  if (req.path !== '/favicon.ico') {
-    // 获取博客数据
-    const blogData = blog(req, res);
-    // 返回博客数据
-    if (blogData) return res.end(JSON.stringify(blogData));
-    // 错误返回
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.write('404 Not Found');
-    res.end();
-  }
+  // 获取博客数据
+  const blogData = await blog(req, res);
+  // 返回博客数据
+  if (blogData) return res.end(JSON.stringify(blogData));
+  // 错误返回
+  res.writeHead(404, { 'Content-Type': 'text/plain' });
+  res.write('404 Not Found');
+  res.end();
 };
 
 module.exports = serverHandle;

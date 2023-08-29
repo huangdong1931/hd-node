@@ -2,14 +2,12 @@ const mysql = require('mysql');
 const CONFIG = require('../config/db');
 
 // 创建连接
-const cnn = mysql.createConnection(CONFIG)
-
+const cnn = mysql.createConnection(CONFIG);
 // 开始连接
 cnn.connect();
-
 // 执行SQL
 const execSql = (sql) => {
-  return new Promise((resolve,  ) => {
+  return new Promise((resolve,  reject) => {
     try {
       cnn.query(sql, (err, res) => {
         if (err) reject(err);
@@ -17,9 +15,6 @@ const execSql = (sql) => {
       })
     } catch (e) {
       reject(e);
-    } finally {
-      // 关闭连接
-      cnn.end();
     }
   });
 };

@@ -47,7 +47,7 @@ const interfaceConfig = {
   }
 }
 
-const handlerBlogRoute = (req, res) => {
+const handlerBlogRoute = async (req, res) => {
   try {
     // 获取请求方式
     const method = req.method;
@@ -62,8 +62,8 @@ const handlerBlogRoute = (req, res) => {
     }
     if (method === request.method && req.path === request.path) {
       const result = request.body ? 
-        request.control(request.params, request.body) :
-        request.control(request.params);
+        await request.control(request.params, request.body) :
+        await request.control(request.params);
       return new SucessModel(result);
     };
   } catch (e) {
