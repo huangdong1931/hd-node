@@ -1,4 +1,4 @@
-// 获取相应格式
+// 获取响应类
 const { SucessModel, failModel } = require('../model/responseModel');
 
 // 获取业务处理函数
@@ -47,6 +47,7 @@ const interfaceConfig = {
   }
 }
 
+// 博客路由入口处理函数
 const handlerBlogRoute = async (req, res) => {
   try {
     // 获取请求方式
@@ -55,11 +56,13 @@ const handlerBlogRoute = async (req, res) => {
     const interfaceType = req.path.split('/').pop();
     // 获取接口配置
     const request = interfaceConfig[interfaceType];
+
     // 获取请求参数
     Object.assign(request.params, req.query);
     if (request.body) {
       Object.assign(request.body, req.body);
     }
+    
     if (method === request.method && req.path === request.path) {
       const result = request.body ? 
         await request.control(request.params, request.body) :

@@ -2,9 +2,9 @@
   "name": "web",
   "version": "1.0.0",
   "description": "",
-  "main": "blog/bin/www.js",
+  "main": "./bin/www.js",
   "scripts": {
-    "dev": "nodemon blog/bin/www.js"
+    "dev": "nodemon ./bin/www.js"
   },
   "keywords": [],
   "author": "hd",

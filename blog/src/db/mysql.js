@@ -1,3 +1,7 @@
+/**
+ * 导入sql第三方模块
+ * 导入MySQL环境配置文件
+ */
 const mysql = require('mysql');
 const CONFIG = require('../config/db');
 
