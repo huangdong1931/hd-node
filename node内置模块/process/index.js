@@ -46,5 +46,7 @@
 
 // child_process
 // node提供的child_process模块，可以很容易的衍生出一个子进程，而且子进程之间可以通过事件消息系统进行互相通信
-const cp = require("child_process");
-console.log('cp:', cp);
+// const cp = require("child_process");
+// console.log('cp:', cp);
+
+console.log(global);

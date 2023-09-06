@@ -7,6 +7,10 @@ const express = require('express');
 // 创建express服务实例
 const app = express();
 
+const jwt = require('jsonwebtoken');
+
+const jwtKey = 'asdasdasdasdasdassdfasd';
+
 /**
  * 配置 Express 内置解析格式的中间件
  * 1. express.json() 解析 application/json 格式
@@ -24,12 +28,27 @@ const LOCAL_HOST = 'http://127.0.0.1';
 
 // 监听 GET 请求
 app.get('/todo/:id', (req, res) => {
+  const headers = req.headers;
+  const token = headers['authorization'];
+  if (!token) return res.status(401).send('token不能为空');
+  jwt.verify(token, jwtKey, (err, payload) => {
+    if (err) res.status(401).end(err);
+    res.status(200).send({ message: '认证成功', payload });
+  })
   res.status(200).send(`GET ${req.params.id}`)
 });
 
 // 监听 POST 请求
 app.post('/todos', (req, res) => {
-  res.status(200).send(`POST`);
+  const { user, password } = req.body;
+  jwt.sign(
+    { user },
+    jwtKey,
+    { expiresIn: '30s' },
+    (err, token) => {
+      res.status(200).json({ user, message: '登录成功', token })
+    }
+  );
 });
 
 // 监听 PUT 请求
