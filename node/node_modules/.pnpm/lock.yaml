@@ -1,0 +1,25 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+devDependencies:
+  opn:
+    specifier: ^6.0.0
+    version: 6.0.0
+
+packages:
+
+  /is-wsl@1.1.0:
+    resolution: {integrity: sha512-gfygJYZ2gLTDlmbWMI0CE2MwnFzSN/2SZfkMlItC4K/JBlsWVDB0bO6XhqcY13YXE7iMcAJnzTCJjPiTeJJ0Mw==}
+    engines: {node: '>=4'}
+    dev: true
+
+  /opn@6.0.0:
+    resolution: {integrity: sha512-I9PKfIZC+e4RXZ/qr1RhgyCnGgYX0UEIlXgWnCOVACIvFgaC9rz6Won7xbdhoHrd8IIhV7YEpHjreNUNkqCGkQ==}
+    engines: {node: '>=8'}
+    deprecated: The package has been renamed to `open`
+    dependencies:
+      is-wsl: 1.1.0
+    dev: true
