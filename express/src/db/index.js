@@ -1,6 +1,6 @@
 const mysql = require('mysql');
-const { MYSQL_ENV } = require('../config/index');
+const { MYSQL_DEV } = require('../config/index');
 
-const db = mysql.createPool(MYSQL_ENV);
+const db = mysql.createPool(MYSQL_DEV);
 
 module.exports = db;
