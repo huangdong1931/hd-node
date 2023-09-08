@@ -1,67 +1,35 @@
 /**
- * 导入 express 框架
+ * 配置各种中间件
  */
 
 const express = require('express');
-
-// 创建express服务实例
+const cors = require('cors');
 const app = express();
 
-const jwt = require('jsonwebtoken');
+// 获取常量配置
+const { PREFIX } = require('./src/config/index');
 
-const jwtKey = 'asdasdasdasdasdassdfasd';
+// 注册跨域中间件
+app.use(cors());
 
-/**
- * 配置 Express 内置解析格式的中间件
- * 1. express.json() 解析 application/json 格式
- * express.json()的作用是将JSON格式的请求体转换为JavaScript对象
- * 它使用Node.js内置的querystring模块将原始的JSON字符串解析成对象
- * 并将该对象作为req.body属性绑定到请求对象上
- * 2. express.urlencoded() 解析 application/x-www-form-urlencoded 格式
- */
+// 注册参数解析中间件
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
 
-// 定义常量
-const PORT = 3000;
-const LOCAL_HOST = 'http://127.0.0.1';
+// 注册路由中间件
+const routes = require('./src/routes/index');
+for (let routeName in routes) {
+  app.use(`${PREFIX}/${routeName}`, routes[routeName]);
+}
 
-// 监听 GET 请求
-app.get('/todo/:id', (req, res) => {
-  const headers = req.headers;
-  const token = headers['authorization'];
-  if (!token) return res.status(401).send('token不能为空');
-  jwt.verify(token, jwtKey, (err, payload) => {
-    if (err) res.status(401).end(err);
-    res.status(200).send({ message: '认证成功', payload });
-  })
-  res.status(200).send(`GET ${req.params.id}`)
-});
+// 注册静态资源中间件
+app.use(express.static('./public'));
 
-// 监听 POST 请求
-app.post('/todos', (req, res) => {
-  const { user, password } = req.body;
-  jwt.sign(
-    { user },
-    jwtKey,
-    { expiresIn: '30s' },
-    (err, token) => {
-      res.status(200).json({ user, message: '登录成功', token })
-    }
-  );
-});
+// 注册错误监控中间件
+const errorHandle = (err, req, res, next) => {
+  console.log('error:', err.message);
+  res.status(500).send('服务器异常', err.message);
+};
+app.use(errorHandle);
 
-// 监听 PUT 请求
-app.put('/todos/:id', (req, res) => {
-  res.status(200).send(`PUT ${req.params.id}`);
-});
-
-// 监听 DELETE 请求
-app.delete('/todos/:id', (req, res) => {
-  res.status(200).send(`DELETE ${req.params.id}`);
-});
-
-// 监听端口
-app.listen('3000', () => {
-  console.log(`Server is running on ${LOCAL_HOST}:${PORT}`);
-});
+module.exports = app;

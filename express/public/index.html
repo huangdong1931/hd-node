@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>express</title>
+  <style>
+    .content {
+      position: relative;
+      margin: 0 auto;
+      width: 320px;
+      height: 100%;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 24px;
+      color: burlywood;
+      margin: 10px;
+    }
+
+    .user-name,
+    .user-password,
+    .user-submit {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 320px;
+      height: 32px;
+      line-height: 32px;
+    }
+
+    input[type="submit"],
+    input[type="text"],
+    input[type="password"] {
+      width: 200px;
+      height: 28px;
+      line-height: 28px;
+    }
+
+    input {
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <div>express从入门到放弃</div>
+
+  <form method="get" action="http://localhost:3000/api/blog/list">
+    <div class="content">
+      <div class="title">模拟GET请求</div>
+      <div class="user-name">
+        <label for="name">用户名</label>
+        <input type="text" required placeholder="请输入" name="userName">
+      </div>
+      <div class="user-password">
+        <label for="password">用户密码</label>
+        <input type="password" required placeholder="请输入" name="password">
+      </div>
+      <div class="user-submit">
+        <label for="submit">提交</label>
+        <input type="submit" value="登录">
+      </div>
+    </div>
+  </form>
+
+  <form method="post" action="http://localhost:3000/api/user/login">
+    <div class="content">
+      <div class="title">模拟POST请求</div>
+      <div class="user-name">
+        <label for="name">用户名</label>
+        <input type="text" placeholder="请输入" name="username">
+      </div>
+      <div class="user-password">
+        <label for="password">用户密码</label>
+        <input type="password" placeholder="请输入" name="password">
+      </div>
+      <div class="user-submit">
+        <label for="submit">提交</label>
+        <input type="submit" value="登录">
+      </div>
+    </div>
+  </form>
+
+</body>
+</html>
