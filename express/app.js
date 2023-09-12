@@ -23,7 +23,7 @@ for (let routeName in routes) {
 }
 
 // 注册静态资源中间件
-app.use(express.static('./public'));
+app.use(express.static('./static'));
 
 // 注册错误监控中间件
 const errorHandle = (err, req, res, next) => {

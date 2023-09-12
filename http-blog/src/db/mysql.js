@@ -15,8 +15,9 @@ const execSql = (sql) => {
     try {
       cnn.query(sql, (err, res) => {
         if (err) reject(err);
-        resolve(res);
+        cnn.end();
       })
+
     } catch (e) {
       reject(e);
     }
